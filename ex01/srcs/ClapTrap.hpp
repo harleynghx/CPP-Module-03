@@ -2,32 +2,26 @@
 #define CLAPTRAP_HPP
 
 #include <string>
-#include <iostream>
 
-class ClapTrap
-{
+class ClapTrap {
 protected:
     std::string _name;
-    unsigned int _hitP;
-    unsigned int _energyP;
-    unsigned int _attackD ;
+    unsigned int _hitPoints;
+    unsigned int _energyPoints;
+    unsigned int _attackDamage;
+
 public:
+    // Orthodox Canonical Form
     ClapTrap();
-    ClapTrap(std::string name);
+    ClapTrap(const std::string& name);
     ClapTrap(const ClapTrap& other);
     ClapTrap& operator=(const ClapTrap& other);
-    ~ClapTrap();
+    virtual ~ClapTrap();
 
-
-    void attack(const std::string& target);
+    // Member functions
+    virtual void attack(const std::string& target);
     void takeDamage(unsigned int amount);
     void beRepaired(unsigned int amount);
-
-
 };
-//todo Question 1: why have a para constructor?
-//todo Question 2: when initialising copy constructor, what does *this = other means and shouldnt we need to init one by one
-//todo Question 3: why init private values in constructor is it(static const?)
-//todo Question 4: copy assignement operator?
 
 #endif

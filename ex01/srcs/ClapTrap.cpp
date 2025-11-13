@@ -1,52 +1,88 @@
 #include "ClapTrap.hpp"
+#include <iostream>
 
-ClapTrap::ClapTrap() : _name("none"), _hitP(10), _energyP(10), _attackD(0)  {
-    std::cout << "Default constructor called" << std::endl;
+// Default constructor
+ClapTrap::ClapTrap() 
+    : _name("Unknown"), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
+    std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _hitP(10), _energyP(10), _attackD(0) {
-    std::cout << _name << " constructor called" << std::endl;
+// Parameterized constructor
+ClapTrap::ClapTrap(const std::string& name) 
+    : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0) {
+    std::cout << "ClapTrap " << _name << " constructor called" << std::endl;
 }
 
+// Copy constructor
 ClapTrap::ClapTrap(const ClapTrap& other) {
     *this = other;
-    std::cout << "Copy Constructor called" << std::endl;
-
+    std::cout << "ClapTrap copy constructor called" << std::endl;
 }
-//? use copy assignment operator
 
+// Copy assignment operator
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
     if (this != &other) {
-        this->_name = other._name, this->_hitP = other._hitP,
-        this->_energyP = other._energyP, this->_attackD = other._attackD;
+        _name = other._name;
+        _hitPoints = other._hitPoints;
+        _energyPoints = other._energyPoints;
+        _attackDamage = other._attackDamage;
     }
+    std::cout << "ClapTrap copy assignment operator called" << std::endl;
     return *this;
 }
-//? " *this " dereferences the this pointer to get the object itself
 
+// Destructor
 ClapTrap::~ClapTrap() {
-    std::cout << "destructor called" << std::endl;
+    std::cout << "ClapTrap " << _name << " destructor called" << std::endl;
 }
 
-//todo attack method
+// Attack function
 void ClapTrap::attack(const std::string& target) {
-    if (_hitP != 0 && _energyP != 0) {
-        _energyP--;
-        std::cout << "Clap trap attacked " << target << "for " << this->_attackD  << "HP" << std::endl;
-
+    if (_hitPoints == 0) {
+        std::cout << "ClapTrap " << _name << " can't attack because it has no hit points left!" << std::endl;
+        return;
     }
+    if (_energyPoints == 0) {
+        std::cout << "ClapTrap " << _name << " can't attack because it has no energy points left!" << std::endl;
+        return;
+    }
+    
+    _energyPoints--;
+    std::cout << "ClapTrap " << _name << " attacks " << target 
+              << ", causing " << _attackDamage << " points of damage!" << std::endl;
 }
 
-//todo takeDamage method
+// Take damage function
 void ClapTrap::takeDamage(unsigned int amount) {
-    std::cout << this->_name << "got attack and lose " << amount << "hit points." << std::endl;
+    if (_hitPoints == 0) {
+        std::cout << "ClapTrap " << _name << " is already destroyed!" << std::endl;
+        return;
+    }
+    
+    if (amount >= _hitPoints) {
+        _hitPoints = 0;
+        std::cout << "ClapTrap " << _name << " takes " << amount 
+                  << " damage and is destroyed!" << std::endl;
+    } else {
+        _hitPoints -= amount;
+        std::cout << "ClapTrap " << _name << " takes " << amount 
+                  << " damage! Now has " << _hitPoints << " hit points." << std::endl;
+    }
 }
 
-//todo Berepaired method
+// Repair function
 void ClapTrap::beRepaired(unsigned int amount) {
-    if (_hitP != 0 && _energyP != 0)
-    {
-        std::cout << "Reparing Claptrap for " << amount << "hit points" << std::endl;
-        this->_hitP = _hitP + amount;
+    if (_hitPoints == 0) {
+        std::cout << "ClapTrap " << _name << " can't repair because it has no hit points left!" << std::endl;
+        return;
     }
+    if (_energyPoints == 0) {
+        std::cout << "ClapTrap " << _name << " can't repair because it has no energy points left!" << std::endl;
+        return;
+    }
+    
+    _energyPoints--;
+    _hitPoints += amount;
+    std::cout << "ClapTrap " << _name << " repairs itself for " << amount 
+              << " hit points! Now has " << _hitPoints << " hit points." << std::endl;
 }

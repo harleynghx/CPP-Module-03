@@ -2,19 +2,23 @@
 #define SCAVTRAP_HPP
 
 #include <string>
+#include "ClapTrap.hpp"
 //todo Inherit constructors
 
 //todo proper constructor chaining
 
 
-class ScavTrap
-{
-private:
-    std::string _name;
-    unsigned int _hp;
-    unsigned int _energyP;
-    unsigned int _attackP;
+class ScavTrap : public ClapTrap {
 public:
+
+    ScavTrap(const std::string& name);
+    ScavTrap();
+    ScavTrap(const ScavTrap& other);
+    ScavTrap& operator=(const ScavTrap& other);
+    ~ScavTrap();
+
+
+    void guardGate();
     
 };
 

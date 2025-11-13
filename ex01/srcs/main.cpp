@@ -1,49 +1,111 @@
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 #include <iostream>
 
-int main() {
-    std::cout << "=== Testing ClapTrap class ===" << std::endl;
+void testConstructionChain() {
+    std::cout << "\n=== Testing Construction/Destruction Chain ===" << std::endl;
+    ScavTrap scav("SC4V-TP");
+    scav.guardGate();
+    // Destructor called automatically when leaving scope
+}
+
+void testInheritedFunctions() {
+    std::cout << "\n=== Testing Inherited Functions ===" << std::endl;
+    ScavTrap scav("InheritanceTest");
     
-    // Test 1: Basic construction
-    std::cout << "\n--- Test 1: Construction ---" << std::endl;
-    ClapTrap clap1("CL4P-TP");
-    ClapTrap clap2("B4D-4SS");
+    // These use ScavTrap's overridden attack
+    scav.attack("Bandit");
+    scav.attack("Psycho");
     
-    // Test 2: Attack functionality
-    std::cout << "\n--- Test 2: Attacks ---" << std::endl;
-    clap1.attack("Bandit");
-    clap2.attack("Psycho");
+    // These use inherited functions from ClapTrap
+    scav.takeDamage(30);
+    scav.beRepaired(15);
+}
+
+void testDifferentValues() {
+    std::cout << "\n=== Testing Different Attribute Values ===" << std::endl;
+    ClapTrap clap("CL4P");
+    ScavTrap scav("SC4V");
     
-    // Test 3: Taking damage
-    std::cout << "\n--- Test 3: Taking damage ---" << std::endl;
-    clap1.takeDamage(5);
-    clap2.takeDamage(3);
+    std::cout << "ClapTrap attacks:" << std::endl;
+    clap.attack("Target");
+    clap.takeDamage(5);
     
-    // Test 4: Repairing
-    std::cout << "\n--- Test 4: Repairing ---" << std::endl;
-    clap1.beRepaired(3);
-    clap2.beRepaired(2);
+    std::cout << "\nScavTrap attacks:" << std::endl;
+    scav.attack("Target");
+    scav.takeDamage(30);
     
-    // Test 5: Energy consumption
-    std::cout << "\n--- Test 5: Energy consumption ---" << std::endl;
-    for (int i = 0; i < 12; i++) {
-        std::cout << "Attack " << (i + 1) << ": ";
-        clap1.attack("Target Dummy");
+    std::cout << "\nScavTrap has more hit points and energy!" << std::endl;
+}
+
+void testEnergyConsumption() {
+    std::cout << "\n=== Testing Energy Consumption (50 energy points) ===" << std::endl;
+    ScavTrap scav("EnergyTest");
+    
+    for (int i = 0; i < 55; i++) {
+        std::cout << "Action " << (i + 1) << ": ";
+        if (i % 3 == 0) {
+            scav.attack("Dummy");
+        } else {
+            scav.beRepaired(1);
+        }
     }
+}
+
+void testSpecialAbility() {
+    std::cout << "\n=== Testing Special Ability ===" << std::endl;
+    ScavTrap scav("GateKeeper");
     
-    // Test 6: Destruction
-    std::cout << "\n--- Test 6: Destruction ---" << std::endl;
-    clap2.takeDamage(20);
-    clap2.attack("Should fail");
-    clap2.beRepaired(5);
+    scav.guardGate();
+    scav.attack("Intruder");
+    scav.guardGate();
+}
+
+void testCopyOperations() {
+    std::cout << "\n=== Testing Copy Operations ===" << std::endl;
     
-    // Test 7: Copy constructor and assignment
-    std::cout << "\n--- Test 7: Copy operations ---" << std::endl;
-    ClapTrap clap3(clap1);
-    ClapTrap clap4;
-    clap4 = clap2;
+    ScavTrap original("Original");
+    original.takeDamage(20);
     
-    std::cout << "\n=== End of tests ===" << std::endl;
+    std::cout << "\n--- Testing copy constructor ---" << std::endl;
+    ScavTrap copy(original);
+    
+    std::cout << "\n--- Testing copy assignment ---" << std::endl;
+    ScavTrap assigned;
+    assigned = original;
+}
+
+void testMixedTypes() {
+    std::cout << "\n=== Testing Mixed ClapTrap and ScavTrap ===" << std::endl;
+    
+    ClapTrap* clapPtr = new ClapTrap("BaseRobot");
+    ScavTrap* scavPtr = new ScavTrap("DerivedRobot");
+    
+    std::cout << "\n--- Bboth can attack ---" << std::endl;
+    clapPtr->attack("Enemy");
+    scavPtr->attack("Enemy");
+    
+    std::cout << "\n--- But only ScavTrap can guard gate ---" << std::endl;
+    // clapPtr->guardGate(); // This would not compile!
+    scavPtr->guardGate();
+    
+    delete clapPtr;
+    delete scavPtr;
+}
+
+int main() {
+    std::cout << "STARTING SCAVTRAP TESTS" << std::endl;
+    
+    testConstructionChain();
+    testInheritedFunctions();
+    testDifferentValues();
+    testEnergyConsumption();
+    testSpecialAbility();
+    testCopyOperations();
+    testMixedTypes();
+    
+    std::cout << "\n=== ALL TESTS COMPLETED ===" << std::endl;
+    std::cout << "Note: Watch for proper construction/destruction order above!" << std::endl;
     
     return 0;
 }
