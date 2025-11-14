@@ -1,10 +1,10 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : _name("none"), _hitP(10), _energyP(10), _attackD(0)  {
-    std::cout << "Default constructor called" << std::endl;
+ClapTrap::ClapTrap() : _name("Unknown"), _hitP(10), _energyP(10), _attackD(0) {
+    std::cout << "default constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _hitP(10), _energyP(10), _attackD(0) {
+ClapTrap::ClapTrap(const std::string name) : _name(name), _hitP(10), _energyP(10), _attackD(0) {
     std::cout << _name << " constructor called" << std::endl;
 }
 
