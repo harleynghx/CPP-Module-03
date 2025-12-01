@@ -3,16 +3,16 @@
 
 ScavTrap::ScavTrap() : ClapTrap() {
     // ScavTrap specific default stats
-    _hitPoints = 100;
-    _energyPoints = 50;
-    _attackDamage = 20;
+    _hitP = 100;
+    _energyP = 50;
+    _attackD = 20;
     std::cout << "ScavTrap Default constructor called" << std::endl;
 }
 
 ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name) {
-    _hitPoints = 100;
-    _energyPoints = 50;
-    _attackDamage = 20;
+    _hitP = 100;
+    _energyP = 50;
+    _attackD = 20;
     std::cout << "ScavTrap " << _name << " constructor called" << std::endl;
 }
 

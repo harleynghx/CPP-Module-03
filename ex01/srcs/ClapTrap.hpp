@@ -6,9 +6,9 @@
 class ClapTrap {
 protected:
     std::string _name;
-    unsigned int _hitPoints;
-    unsigned int _energyPoints;
-    unsigned int _attackDamage;
+    unsigned int _hitP;
+    unsigned int _energyP;
+    unsigned int _attackD;
 
 public:
     // Orthodox Canonical Form

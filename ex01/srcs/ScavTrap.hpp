@@ -3,10 +3,6 @@
 
 #include <string>
 #include "ClapTrap.hpp"
-//todo Inherit constructors
-
-//todo proper constructor chaining
-
 
 class ScavTrap : public ClapTrap {
 public:
