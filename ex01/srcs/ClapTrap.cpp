@@ -1,23 +1,19 @@
 #include "ClapTrap.hpp"
 #include <iostream>
 
-// Default constructor
 ClapTrap::ClapTrap() : _name("Unknown"), _hitP(10), _energyP(10), _attackD(0) {
     std::cout << "ClapTrap default constructor called" << std::endl;
 }
 
-// Parameterized constructor
 ClapTrap::ClapTrap(const std::string& name) : _name(name), _hitP(10), _energyP(10), _attackD(0) {
     std::cout << "ClapTrap " << _name << " constructor called" << std::endl;
 }
 
-// Copy constructor
 ClapTrap::ClapTrap(const ClapTrap& other) {
     *this = other;
     std::cout << "ClapTrap copy constructor called" << std::endl;
 }
 
-// Copy assignment operator
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
     if (this != &other) {
         _name = other._name;
@@ -29,7 +25,6 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
     return *this;
 }
 
-// Destructor
 ClapTrap::~ClapTrap() {
     std::cout << "ClapTrap " << _name << " destructor called" << std::endl;
 }

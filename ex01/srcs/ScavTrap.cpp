@@ -2,7 +2,6 @@
 #include <iostream>
 
 ScavTrap::ScavTrap() : ClapTrap() {
-    // ScavTrap specific default stats
     _hitP = 100;
     _energyP = 50;
     _attackD = 20;
