@@ -25,9 +25,4 @@ public:
 
 
 };
-//todo Question 1: why have a para constructor?
-//todo Question 2: when initialising copy constructor, what does *this = other means and shouldnt we need to init one by one
-//todo Question 3: why init private values in constructor is it(static const?)
-//todo Question 4: copy assignement operator?
-
 #endif

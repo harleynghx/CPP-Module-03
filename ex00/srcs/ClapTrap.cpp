@@ -13,7 +13,6 @@ ClapTrap::ClapTrap(const ClapTrap& other) {
     std::cout << "Copy Constructor called" << std::endl;
 
 }
-//? use copy assignment operator
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
     if (this != &other) {
@@ -22,31 +21,52 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& other) {
     }
     return *this;
 }
-//? " *this " dereferences the this pointer to get the object itself
 
 ClapTrap::~ClapTrap() {
     std::cout << "destructor called" << std::endl;
 }
 
-//todo attack method
 void ClapTrap::attack(const std::string& target) {
-    if (_hitP != 0 && _energyP != 0) {
-        _energyP--;
-        std::cout << "Clap trap attacked " << target << "for " << this->_attackD  << "HP" << std::endl;
-
+    if (this->_hitP == 0) {
+        std::cout << "ClapTrap " << this->_name << " cannot attack because it has no hit points left!" << std::endl;
+        return;
     }
+    if (this->_energyP == 0) {
+        std::cout << "ClapTrap " << this->_name << " cannot attack because it has no energy points left!" << std::endl;
+        return;
+    }
+    this->_energyP--;
+    std::cout << "ClapTrap " << this->_name << " attacks " << target 
+              << ", causing " << this->_attackD << " points of damage!" << std::endl;
 }
 
-//todo takeDamage method
+
 void ClapTrap::takeDamage(unsigned int amount) {
-    std::cout << this->_name << "got attack and lose " << amount << "hit points." << std::endl;
-}
-
-//todo Berepaired method
-void ClapTrap::beRepaired(unsigned int amount) {
-    if (_hitP != 0 && _energyP != 0)
-    {
-        std::cout << "Reparing Claptrap for " << amount << "hit points" << std::endl;
-        this->_hitP = _hitP + amount;
+    if (this->_hitP == 0) {
+        std::cout << "ClapTrap " << this->_name << " is already destroyed!" << std::endl;
+        return;
     }
+    if (amount >= this->_hitP) {
+        this->_hitP = 0;
+        std::cout << "ClapTrap " << this->_name << " takes " << amount 
+                  << " points of damage and is destroyed!" << std::endl;
+    } else {
+        this->_hitP -= amount;
+        std::cout << "ClapTrap " << this->_name << " takes " << amount 
+                  << " points of damage! Hit points remaining: " << this->_hitP << std::endl;
+    }
+}
+void ClapTrap::beRepaired(unsigned int amount) {
+    if (this->_hitP == 0) {
+        std::cout << "ClapTrap " << this->_name << " cannot be repaired because it is destroyed!" << std::endl;
+        return;
+    }
+    if (this->_energyP == 0) {
+        std::cout << "ClapTrap " << this->_name << " cannot be repaired because it has no energy points left!" << std::endl;
+        return;
+    }
+    this->_energyP--;
+    this->_hitP += amount;
+    std::cout << "ClapTrap " << this->_name << " is repaired for " << amount 
+              << " hit points! Total hit points: " << this->_hitP << std::endl;
 }
