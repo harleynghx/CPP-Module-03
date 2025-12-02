@@ -10,7 +10,7 @@ ClapTrap::ClapTrap(const std::string& name) : _name(name), _hitP(10), _energyP(1
 
 ClapTrap::ClapTrap(const ClapTrap& other) {
     *this = other;
-    std::cout << _name << " is getting clone" << std::endl;
+    std::cout << "ClapTrap copy constructor called" << std::endl;
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap& other) {

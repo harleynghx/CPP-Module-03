@@ -6,6 +6,9 @@ int main() {
     // Test 1: Basic ScavTrap creation and methods
     ScavTrap scav("Guardian");
     ClapTrap clap("groot");
+    ScavTrap scav2(scav);
+    // ClapTrap* robot = new ScavTrap("Scavy");
+
     
     clap.attack("mimi");
     clap.takeDamage(5);
@@ -17,10 +20,11 @@ int main() {
     scav.guardGate();
     scav.takeDamage(111);
     scav.guardGate();
+    scav2.attack("spongebob");
+
+    // robot->takeDamage(10);
     
-    ScavTrap scav2("TempGuardian");
-    scav2.guardGate();
-    
+    // delete robot;
     return 0;
 }
 
